@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Calculator</title>
+  </head>
+  <body>
+    <h1>Simple Calculator</h1>
+
+    <form>
+      <label for="expression">Expression:</label>
+      <input type="text" id="expression" placeholder="Enter expression">
+      <br>
+      <button type="button" onclick="toCalculate()">Calculate</button>
+    </form>
+
+    <p id="result"></p>
+
+    <script>
+      function toCalculate(input) {
+        // Initialize an empty array to store the numbers
+        let numbers = [];
+
+        // Split the input string into an array of characters
+        let inputArray = input.split('');
+
+        // Loop through the inputArray
+        for (let i = 0; i < inputArray.length; i++) {
+          // Check if the current character is a number
+          if (!isNaN(inputArray[i])) {
+            // If it is a number, push it to the numbers array
+            numbers.push(inputArray[i]);
+          } else {
+            // If it is not a number, it must be an operator
+            let operator = inputArray[i];
+            // Remove the operator and the last two numbers from the inputArray
+            let num1 = numbers.splice(-1, 1)[0];
+            let num2 = numbers.splice(-1, 1)[0];
+            // Perform the operation and push the result back to the numbers array
+            switch (operator) {
+              case '+':
+                numbers.push(parseInt(num1) + parseInt(num2));
+                break;
+              case '-':
+                numbers.push(parseInt(num2) - parseInt(num1));
+                break;
+              case '*':
+                numbers.push(parseInt(num1) * parseInt(num2));
+                break;
+              case '/':
+                numbers.push(parseInt(num2) / parseInt(num1));
+                break;
+              default:
+                console.log('Invalid operator');
+            }
+          }
+        }
+
+        // Return the final result
+        return numbers[0];
+      }
+
+      function toCalculate() {
+        let expression = document.getElementById("expression").value;
+        let result = calculator(expression);
+        document.getElementById("result").innerHTML = "Result: " + result;
+      }
+    </script>
+  </body>
+</html>
+
+</body>
+</html>
